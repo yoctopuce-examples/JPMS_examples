@@ -1,28 +1,34 @@
 package com.mycompany.app;
 
-
 import com.yoctopuce.YoctoAPI.*;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class App
 {
     public static void main( String[] args )
     {
-
-
+        // print hello world
         System.out.println( "Hello World!" );
+        // print Java version
         String version = System.getProperty("java.version");
-        System.out.println("Java:"+version);
-        String msg = YAPI.GetAPIVersion();
-        System.out.println("Yoctopuce lib :"+msg);
+        System.out.println("Java version :"+version);
+
+        // print Yoctopuce API version
+        System.out.println("Yoctopuce Java API :" + YAPI.GetAPIVersion());
+
         try {
-        	YAPI.RegisterHub("172.17.17.142");
-        }catch(YAPI_Exception ex) {
-        	System.out.println(ex.getLocalizedMessage());
+            // setup the API to use local VirtualHub
+            YAPI.RegisterHub("127.0.0.1");
+            // list all Yoctopuce devices
+            System.out.println("Device list");
+            YModule module = YModule.FirstModule();
+            while (module != null) {
+                System.out.println(module.get_serialNumber() + " (" + module.get_productName() + ")");
+                module = module.nextModule();
+            }
+        } catch (YAPI_Exception ex) {
+            System.out.println("YAPI Error:" + ex.getLocalizedMessage());
         }
+        // free all resources
         YAPI.FreeAPI();
     }
 }
