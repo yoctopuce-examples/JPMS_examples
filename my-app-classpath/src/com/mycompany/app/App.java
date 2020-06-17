@@ -4,10 +4,12 @@ import com.yoctopuce.YoctoAPI.*;
 
 public class App
 {
-    public static void main( String[] args )
+
+    public static void dumpAllDevices()
     {
         // print hello world
-        System.out.println( "Use yoctoAPI.jar form classpath." );
+        System.out.println( "Use yoctoAPI.jar from classpath." );
+
         // print Java version
         String version = System.getProperty("java.version");
         System.out.println("Java version :"+version);
@@ -30,5 +32,11 @@ public class App
         }
         // free all resources
         YAPI.FreeAPI();
+    }
+
+
+    public static void main( String[] args )
+    {
+        dumpAllDevices();
     }
 }
